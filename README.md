@@ -29,3 +29,5 @@ julia> highlited = highlight_contours(thinned, contours)
 ```
 Then if I zoom in a little bit, I can see the contours with red color:
 ![image](https://user-images.githubusercontent.com/52105833/206715313-9d22f4a0-9662-49ef-984e-2c9b959244c6.png)
+
+I did this inspired by this question: [[Link](https://stackoverflow.com/q/74595135/11747148)]
