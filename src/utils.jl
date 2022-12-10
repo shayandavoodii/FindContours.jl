@@ -1,6 +1,6 @@
 module FindContours
 
-using Images, FileIO, ImageBinarization
+using Images, FileIO, ImageBinarization, Distances
 export main, highlight_contours
 
 """
@@ -55,23 +55,6 @@ function find_the_contour(img::BitMatrix)
 end
 
 """
-    distance_between_contours(V::Vector{T}, v::T) where T<:Tuple{Int64, Int64}
-
-Return the euclidean distance between the contour `v` and the contours in `V`.
-
-# Arguments
-- `V::Vector{T}`: the contours to check the distance to.
-- `v::T`: the contour to check the distance from.
-
-# Returns
-- `Float64`: the euclidean distance between the contour `v` and the contours in `V`.
-
-"""
-function distance_between_contours(V::Vector{T}, v::T) where T<:Tuple{Int64, Int64}
-    return broadcast((x, y)->sqrt(sum((x.-y).^2)), V, Ref(v))
-end
-
-"""
     distance_between_contours(all_contours::Vector{CartesianIndex{2}})
 
 Return the euclidean distance between each pair of contours in `all_contours`.
@@ -83,15 +66,8 @@ Return the euclidean distance between each pair of contours in `all_contours`.
 - `Matrix{Float64}`: the euclidean distance between each pair of contours in `all_contours`.
 """
 function distance_between_contours(all_contours::Vector{CartesianIndex{2}})
-    n = length(all_contours)
-    distances = Matrix{Float64}(undef, n, n)
-
-    for j in eachindex(all_contours)
-        distances[:, j] .= distance_between_contours(
-            Tuple.(all_contours),
-            Tuple(all_contours[j])
-        )
-    end
+    alltuples = Tuple.(all_contours)
+    distances = pairwise(Euclidean(), alltuples)
 
     return distances
 end
