@@ -47,9 +47,9 @@ function find_the_contour(img::BitMatrix)
     img_matrix = convert(Array{Float64}, img)
     not_black = findall(!=(0.0), img_matrix)
     contours = Vector{CartesianIndex{2}}()
+
     for nb∈not_black
-        t = check_adjacent(nb, not_black)
-        t==1 && push!(contours, nb)
+        check_adjacent(nb, not_black)==1 && push!(contours, nb)
     end
     return contours
 end
