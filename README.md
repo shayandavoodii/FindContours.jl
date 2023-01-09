@@ -1,4 +1,4 @@
-# FindContours.jl
+# TFLS.jl
 A Julia script to find contours of vessels-like shapes and calculate pairwise distance between them. For example, consider the following picture: 
 ![img](https://user-images.githubusercontent.com/52105833/206712072-b37dfbe6-f16d-4917-9ca0-ced833c33077.png)
 
